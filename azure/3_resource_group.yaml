@@ -1,0 +1,13 @@
+apiVersion: azure.upbound.io/v1beta1
+kind: ResourceGroup
+metadata:
+  name: aks-cluster-rg
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    location: East Asia
+    tags:
+      provisioner: crossplane

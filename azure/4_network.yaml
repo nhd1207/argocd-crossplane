@@ -1,0 +1,43 @@
+apiVersion: network.azure.upbound.io/v1beta1
+kind: VirtualNetwork
+metadata:
+  name: main
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  forProvider:
+    addressSpace:
+      - 10.0.0.0/16
+    location: East Asia
+    resourceGroupNameRef:
+      name: aks-cluster-rg
+---
+apiVersion: network.azure.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: dmz-subnet-a
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  forProvider:
+    addressPrefixes:
+      - 10.0.1.0/24
+    resourceGroupNameRef:
+      name: aks-cluster-rg
+    virtualNetworkNameRef:
+      name: main
+---
+apiVersion: network.azure.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: dmz-subnet-b
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  forProvider:
+    addressPrefixes:
+      - 10.0.2.0/24
+    resourceGroupNameRef:
+      name: aks-cluster-rg
+    virtualNetworkNameRef:
+      name: main

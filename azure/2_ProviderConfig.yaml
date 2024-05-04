@@ -1,0 +1,13 @@
+apiVersion: azure.upbound.io/v1beta1
+metadata:
+  name: azure-default
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+kind: ProviderConfig
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: azure-secret
+      key: creds
