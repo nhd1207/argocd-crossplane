@@ -26,8 +26,9 @@ spec:
     resourceGroupNameRef:
       name: aks-cluster-rg
     networkProfile:
-    - networkPlugin: azure
-      networkPluginMode: overlay
-      networkPolicy: azure
-      serviceCidr: 10.50.0.0/16
-      loadBalancerSku: basic
+      - networkPlugin: azure
+        networkPluginMode: overlay
+        networkPolicy: azure
+        serviceCidr: 10.50.0.0/16
+        loadBalancerSku: basic
+        dnsServiceIp: 10.50.0.1
