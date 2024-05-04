@@ -3,7 +3,7 @@ kind: VirtualNetwork
 metadata:
   name: main
   annotations:
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   forProvider:
     addressSpace:
@@ -17,7 +17,7 @@ kind: Subnet
 metadata:
   name: dmz-subnet-a
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   forProvider:
     addressPrefixes:
@@ -32,7 +32,7 @@ kind: Subnet
 metadata:
   name: dmz-subnet-b
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   forProvider:
     addressPrefixes:

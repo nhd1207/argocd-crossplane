@@ -13,6 +13,8 @@ az ad sp create-for-rbac \
 ```
 
 2. Create a Secret for ProviderConfig
+Configure your credentials file according to `azure.json`
+
 ```bash
 kubectl create secret generic azure-secret -n crossplane-system --from-file=creds=azure.json
 ```
@@ -23,7 +25,7 @@ cat << EOF | kubectl apply -f -
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: AzureResources
+  name: azure-resources
   namespace: argocd
 spec:
   project: crossplane
@@ -39,4 +41,5 @@ spec:
     namespace: crossplane-system
   syncPolicy:
     automated: {}
+EOF
 ```

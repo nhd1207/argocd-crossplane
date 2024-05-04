@@ -3,7 +3,8 @@ kind: ResourceGroup
 metadata:
   name: aks-cluster-rg
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   providerConfigRef:
     name: default

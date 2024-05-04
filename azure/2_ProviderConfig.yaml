@@ -2,7 +2,8 @@ apiVersion: azure.upbound.io/v1beta1
 metadata:
   name: azure-default
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "0"
 kind: ProviderConfig
 spec:
   credentials:
