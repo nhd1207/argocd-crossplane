@@ -3,6 +3,7 @@ kind: VirtualNetwork
 metadata:
   name: main
   annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "2"
 spec:
   forProvider:
@@ -17,6 +18,7 @@ kind: Subnet
 metadata:
   name: dmz-subnet-a
   annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "3"
 spec:
   forProvider:
@@ -32,6 +34,7 @@ kind: Subnet
 metadata:
   name: dmz-subnet-b
   annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "3"
 spec:
   forProvider:
