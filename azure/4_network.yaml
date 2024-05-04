@@ -1,3 +1,13 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-azure-network
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  package: xpkg.upbound.io/upbound/provider-azure-network:v1.0.1
+---
 apiVersion: network.azure.upbound.io/v1beta1
 kind: VirtualNetwork
 metadata:
