@@ -25,3 +25,8 @@ spec:
     location: EastAsia
     resourceGroupNameRef:
       name: aks-cluster-rg
+    networkProfile:
+      networkPlugin: azure
+      networkPluginMode: overlay
+      networkPolicy: azure
+      serviceCidr: 10.50.0.0/16
