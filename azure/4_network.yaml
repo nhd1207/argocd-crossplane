@@ -1,13 +1,3 @@
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: provider-azure-network
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
-    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
-spec:
-  package: xpkg.upbound.io/upbound/provider-azure-network:v1.0.1
----
 apiVersion: network.azure.upbound.io/v1beta1
 kind: VirtualNetwork
 metadata:
@@ -16,6 +6,8 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "2"
 spec:
+  providerConfigRef:
+    name: azure-default
   forProvider:
     addressSpace:
       - 10.0.0.0/16
@@ -31,6 +23,8 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "3"
 spec:
+  providerConfigRef:
+    name: azure-default
   forProvider:
     addressPrefixes:
       - 10.0.1.0/24
@@ -47,9 +41,53 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "3"
 spec:
+  providerConfigRef:
+    name: azure-default
   forProvider:
     addressPrefixes:
       - 10.0.2.0/24
+    resourceGroupNameRef:
+      name: aks-cluster-rg
+    virtualNetworkNameRef:
+      name: main
+---
+apiVersion: network.azure.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: private-subnet-a
+  labels:
+    tier: private
+    subnet: a
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  providerConfigRef:
+    name: azure-default
+  forProvider:
+    addressPrefixes:
+      - 10.0.3.0/24
+    resourceGroupNameRef:
+      name: aks-cluster-rg
+    virtualNetworkNameRef:
+      name: main
+---
+apiVersion: network.azure.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: private-subnet-b
+  labels:
+    tier: private
+    subnet: b
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  providerConfigRef:
+    name: azure-default
+  forProvider:
+    addressPrefixes:
+      - 10.0.4.0/24
     resourceGroupNameRef:
       name: aks-cluster-rg
     virtualNetworkNameRef:

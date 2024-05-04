@@ -1,0 +1,31 @@
+
+apiVersion: containerservice.azure.upbound.io/v1beta1
+kind: KubernetesCluster
+metadata:
+  name: ducnh1
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: azure-default
+  forProvider:    
+    defaultNodePool:
+      - name: default
+        nodeCount: 1
+        vmSize: Standard_D2as_v4
+        osDiskSizeGb: 50
+        osDiskType: Managed
+        osSku: Ubuntu
+        vnetSubnetIdRef:
+          name: main
+        podSubnetIdSelector:
+          matchLabels:
+            tier: private
+            subnet: a
+    dnsPrefix: ducnh
+    identity:
+      - type: SystemAssigned
+    location: EastAsia
+    resourceGroupNameRef:
+      name: aks-cluster-rg
