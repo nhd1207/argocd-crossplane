@@ -12,3 +12,4 @@ spec:
     server: https://kubernetes.default.svc
   sourceRepos:
   - git@github.com:nhd1207/argocd-crossplane.git
+  - https://charts.crossplane.io/stable
