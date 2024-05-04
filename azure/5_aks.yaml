@@ -31,4 +31,4 @@ spec:
         networkPolicy: azure
         serviceCidr: 10.50.0.0/16
         loadBalancerSku: basic
-        dnsServiceIp: 10.50.0.1
+        dnsServiceIp: 10.50.0.5
