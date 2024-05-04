@@ -14,6 +14,8 @@ spec:
   - git@github.com:nhd1207/argocd-crossplane.git
   - https://charts.crossplane.io/stable
   clusterResourceWhitelist:
-  - "*"
+  - group: '*'
+    kind: '*'
   namespaceResourceWhitelist:
-  - "*"
+  - group: '*'
+    kind: '*'
