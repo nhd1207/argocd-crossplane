@@ -51,11 +51,10 @@ metadata:
   name: main
   namespace: argocd
 spec:
-  project: project
+  project: default
   source:
-    repoURL: https://charts.crossplane.io/stable
+    repoURL: https://github.com/nhd1207/argocd-crossplane.git
     targetRevision: HEAD
-    path: /
     directory:
       recurse: false
       include: '*.yaml'
