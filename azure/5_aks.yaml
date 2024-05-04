@@ -18,11 +18,7 @@ spec:
         osDiskType: Managed
         osSku: Ubuntu
         vnetSubnetIdRef:
-          name: main
-        podSubnetIdSelector:
-          matchLabels:
-            tier: private
-            subnet: a
+          name: private-subnet-a
     dnsPrefix: ducnh
     identity:
       - type: SystemAssigned
