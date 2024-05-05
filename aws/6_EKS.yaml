@@ -3,7 +3,7 @@ kind: Role
 metadata:
   name: ducnh1-eks-cluster-service-role
   annotations:
-    argocd.argoproj.io/sync-wave: 0
+    argocd.argoproj.io/sync-wave: "0"
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
 spec:
   providerConfigRef:
