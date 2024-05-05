@@ -32,10 +32,12 @@ spec:
 ---
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: NATGateway
+metadata:
   name: main-nat-gw
   annotations:
     argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
   providerConfigRef:
     name: aws-default 
   forProvider:
