@@ -48,7 +48,7 @@ spec:
   forProvider:
     region: ap-northeast-1
     tags:
-      Name: internet-access
+      Name: internet-access-via-nat
     vpcIdRef:
       name: eks-vpc
 ---
@@ -138,4 +138,4 @@ spec:
     routeTableIdRef:
       name: internet-access-via-nat
     subnetIdRef: 
-      name: private-subnet-a
+      name: private-subnet-d
