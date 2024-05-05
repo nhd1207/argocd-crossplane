@@ -1,0 +1,135 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  name: default-internet-access
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    tags:
+      Name: internet-access
+    vpcIdRef:
+      name: eks-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta2
+kind: Route
+metadata:
+  name: allow-internet-access
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    vpcIdRef:
+      name: eks-vpc
+    gatewayIdRef:
+      name: main-igw
+    routeTableIdRef:
+      name: default-internet-access
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  name: internet-access-via-nat
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    tags:
+      Name: internet-access
+    vpcIdRef:
+      name: eks-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta2
+kind: Route
+metadata:
+  name: via-nat-gw
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    vpcIdRef:
+      name: eks-vpc
+    natGatewayIdRef:
+      name: main-nat-gw
+    routeTableIdRef:
+      name: internet-access-via-nat
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: dmz-subnet-a-routing
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    routeTableIdRef:
+      name: default-internet-access
+    subnetIdRef: 
+      name: dmz-subnet-a
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: dmz-subnet-c-routing
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    routeTableIdRef:
+      name: default-internet-access
+    subnetIdRef: 
+      name: dmz-subnet-c
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: private-subnet-a-routing
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    routeTableIdRef:
+      name: internet-access-via-nat
+    subnetIdRef: 
+      name: private-subnet-a
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: private-subnet-d-routing
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    routeTableIdRef:
+      name: internet-access-via-nat
+    subnetIdRef: 
+      name: private-subnet-a

@@ -1,0 +1,47 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: InternetGateway
+metadata:
+  name: main-igw
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default 
+  forProvider:
+    region: ap-northeast-1
+    tags:
+      Name: main-igw
+    vpcIdRef:
+      name: eks-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: EIP
+metadata:
+  name: nat-eip
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default 
+  forProvider:
+    region: ap-northeast-1
+    tags:
+      Name: nat-eip
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: NATGateway
+  name: main-nat-gw
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+  providerConfigRef:
+    name: aws-default 
+  forProvider:
+    region: ap-northeast-1
+    connectivityType: public
+    subnetIdRef:
+      name: dmz-subnet-a
+    allocationIdRef:
+      name: nat-eip
