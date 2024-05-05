@@ -96,8 +96,6 @@ spec:
     name: aws-default
   forProvider:
     region: ap-northeast-1
-    kubernetesNetworkConfig:
-      - ipFamily: ipv4
     roleArnRef:
       name: ducnh1-eks-cluster-service-role
     vpcConfig:
