@@ -47,10 +47,10 @@ EOF
 
 ### Result
 
-![ArgoCD Azure Resources Applciation](./asset/image.png)
+![ArgoCD Azure Resources Applciation](./asset/ArgoCD.png)
 
 
-![Kubernetes as a CRD](./asset/KubernetesResource.png)
+![Azure Kubernetes as a CRD](./asset/KubernetesResource.png)
 
 
 ![KubernetesCluster detail](./asset/KubernetesClusterInDetail.png)

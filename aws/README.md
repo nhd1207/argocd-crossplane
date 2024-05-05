@@ -29,3 +29,11 @@ spec:
     automated: {}
 EOF
 ```
+
+### Result
+![ArgoCD AWS Resources application](./asset/ArgoCD.png)
+
+![AWS EKS as a CRD in Kubernetes](./asset/AWS_EKS_as_CRD.png)
+
+![The deployed AWS EKS resource](./asset/AWS_EKS.png)
+
