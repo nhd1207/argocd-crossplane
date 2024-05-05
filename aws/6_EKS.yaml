@@ -102,8 +102,6 @@ spec:
       name: ducnh1-eks-cluster-service-role
     vpcConfig:
       - endpointPublicAccess: true
-        publicAccessCidrs: 
-          - "0.0.0.0/0"
         securityGroupIdRefs:
           - name: eks-cluster-sg
         subnetIdRefs:
