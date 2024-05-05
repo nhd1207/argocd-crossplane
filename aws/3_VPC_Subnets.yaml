@@ -1,0 +1,93 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  name: eks-vpc
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+    enableDnsHostnames: true
+    region: ap-northeast-1
+    tags:
+      created_by: Crossplane
+      environment: development
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: dmz-subnet-a
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    availabilityZone: ap-northeast-1a
+    cidrBlock: 10.0.0.0/18
+    mapPublicIpOnLaunch: true
+    privateDnsHostnameTypeOnLaunch: ip-name
+    region: ap-northeast-1
+    vpcIdRef:
+      name: eks-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: dmz-subnet-c
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    availabilityZone: ap-northeast-1c
+    cidrBlock: 10.0.64.0/18
+    mapPublicIpOnLaunch: true
+    privateDnsHostnameTypeOnLaunch: ip-name
+    region: ap-northeast-1
+    vpcIdRef:
+      name: eks-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: private-subnet-a
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    availabilityZone: ap-northeast-1a
+    cidrBlock: 10.0.128.0/18
+    mapPublicIpOnLaunch: false
+    privateDnsHostnameTypeOnLaunch: ip-name
+    region: ap-northeast-1
+    vpcIdRef:
+      name: eks-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: private-subnet-d
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    availabilityZone: ap-northeast-1d
+    cidrBlock: 10.0.128.0/18
+    mapPublicIpOnLaunch: false
+    privateDnsHostnameTypeOnLaunch: ip-name
+    region: ap-northeast-1
+    vpcIdRef:
+      name: eks-vpc

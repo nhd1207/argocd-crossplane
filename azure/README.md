@@ -25,7 +25,7 @@ cat << EOF | kubectl apply -f -
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: azure-resources
+  name: azureresources
   namespace: argocd
 spec:
   project: crossplane
@@ -43,3 +43,19 @@ spec:
     automated: {}
 EOF
 ```
+
+
+### Result
+
+![ArgoCD Azure Resources Applciation](./asset/image.png)
+
+
+![Kubernetes as a CRD](./asset/KubernetesResource.png)
+
+
+![KubernetesCluster detail](./asset/KubernetesClusterInDetail.png)
+
+
+![Deployed Kubernetes by Crossplane](./asset/AzureAKS.png)
+
+
