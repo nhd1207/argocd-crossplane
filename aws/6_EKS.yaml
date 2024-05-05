@@ -3,7 +3,7 @@ kind: Role
 metadata:
   name: ducnh1-eks-cluster-service-role
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: 0
     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
 spec:
   providerConfigRef:
@@ -58,8 +58,8 @@ spec:
       name: eks-cluster-sg
     self: true
     description: allow all inbound from eks-cluster-rg
-    fromPort: "0"
-    toPort: "0"
+    fromPort: 0
+    toPort: 0
     protocol: "-1"
     type: ingress
 ---
@@ -79,8 +79,8 @@ spec:
       name: eks-cluster-sg
     self: true
     description: allow all outbound access
-    fromPort: "0"
-    toPort: "0"
+    fromPort: 0
+    toPort: 0
     protocol: "-1"
     type: egress
 ---
