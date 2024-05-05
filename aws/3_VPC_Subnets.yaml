@@ -92,7 +92,7 @@ spec:
     name: aws-default
   forProvider:
     availabilityZone: ap-northeast-1d
-    cidrBlock: 10.0.128.0/18
+    cidrBlock: 10.0.192.0/18
     mapPublicIpOnLaunch: false
     privateDnsHostnameTypeOnLaunch: ip-name
     region: ap-northeast-1
