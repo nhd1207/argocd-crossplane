@@ -1,0 +1,146 @@
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: Role
+metadata:
+  name: ducnh1-eks-cluster-service-role
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    assumeRolePolicy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "eks.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+    description: "Allow EKS to assume role"
+    managedPolicyArns:
+    - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: eks-cluster-sg
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    description: Security groups for EKS Cluster
+    vpcIdRef:
+      name: eks-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: allow-default-inbound
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    securityGroupIdRef:
+      name: eks-cluster-sg
+    self: true
+    description: allow all inbound from eks-cluster-rg
+    fromPort: "0"
+    toPort: "0"
+    protocol: "-1"
+    type: ingress
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: allow-all-outbound
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    securityGroupIdRef:
+      name: eks-cluster-sg
+    self: true
+    description: allow all outbound access
+    fromPort: "0"
+    toPort: "0"
+    protocol: "-1"
+    type: egress
+---
+apiVersion: eks.aws.upbound.io/v1beta1
+kind: Cluster
+metadata:
+  name: ducnh1
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    region: ap-northeast-1
+    kubernetesNetworkConfig:
+      ipFamily: ipv4
+    roleArnRef:
+      name: ducnh1-eks-cluster-service-role
+    vpcConfig:
+      securityGroupIdRefs:
+      - name: eks-cluster-sg
+      subnetIdRefs:
+      - name: dmz-subnet-a
+      - name: dmz-subnet-c
+      - name: private-subnet-a
+      - name: private-subnet-d
+    tags:
+      Name: ducnh1
+---
+apiVersion: eks.aws.upbound.io/v1beta1
+kind: IdentityProviderConfig
+metadata:
+  name: oidc-ducnh1-eks
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+    argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+spec:
+  providerConfigRef:
+    name: aws-default
+  forProvider:
+    clusterNameRef:
+      name: ducnh1
+    region: ap-northeast-1
+    oidc: []
+---
+# apiVersion: eks.aws.upbound.io/v1beta1
+# kind: Addon
+# metadata:
+#   name: aws-vpc-cni
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "6"
+#     argocd.argoproj.io/sync-options: "SkipDryRunOnMissingResource=true"
+# spec:
+#   providerConfigRef:
+#     name: aws-default
+#   forProvider:
+#     addonName: vpc-cni
+#     addonVersion: v1.18.1-eksbuild.1
+#     clusterNameRef:
+#       name: ducnh1
+#     region: ap-northeast-1
+#     serviceAccountRoleArnRef: 
