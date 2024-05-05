@@ -101,13 +101,15 @@ spec:
     roleArnRef:
       name: ducnh1-eks-cluster-service-role
     vpcConfig:
-      securityGroupIdRefs:
-      - name: eks-cluster-sg
-      subnetIdRefs:
-      - name: dmz-subnet-a
-      - name: dmz-subnet-c
-      - name: private-subnet-a
-      - name: private-subnet-d
+      - endpointPublicAccess: true
+        publicAccessCidrs: 0.0.0.0/0
+        securityGroupIdRefs:
+        - name: eks-cluster-sg
+        subnetIdRefs:
+        - name: dmz-subnet-a
+        - name: dmz-subnet-c
+        - name: private-subnet-a
+        - name: private-subnet-d
     tags:
       Name: ducnh1
 ---
