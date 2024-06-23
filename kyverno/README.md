@@ -26,5 +26,8 @@ EOF
 ```
 
 ## Result:
-
+After deploying Kyverno:
 ![Kyverno application](./asset/image.png)
+
+Create a policy to add node selector 
+![Node Selector Policy](./asset/add_node_selector.png)
