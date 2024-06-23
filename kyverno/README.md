@@ -1,4 +1,4 @@
-## Deploy Crossplane
+## Deploy Kyverno
 
 Run the following command to deploy an Kyverno Application 
 ```bash
@@ -27,4 +27,4 @@ EOF
 
 ## Result:
 
-![ArgoCD application](./asset/image.png)
+![Kyverno application](./asset/image.png)
