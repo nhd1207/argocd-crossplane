@@ -13,7 +13,7 @@ spec:
       releaseName: kyverno
       valueFiles:
       - crds.yaml
-      - controllers
+      - controllers.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kyverno
