@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: kyverno
+  namespace: argocd
+spec:
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: https://kubernetes.default.svc
+  sourceRepos:
+  - https://github.com/nhd1207/argocd-crossplane.git
+  - https://kyverno.github.io/kyverno
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'

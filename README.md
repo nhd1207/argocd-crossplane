@@ -30,4 +30,8 @@ rm argocd-linux-amd64
 Checkout the following README.md files: \
 [Crossplane](./crossplane/README.md) \
 [AKS](./azure/README.md) \
-[EKS](./aws/README.md)
+[EKS](./aws/README.md)\
+
+## Deploy Kyverno
+Checkout the following README.md files: \
+[Kyverno](./kyverno/README.md) 
