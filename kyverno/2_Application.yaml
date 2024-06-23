@@ -11,9 +11,32 @@ spec:
     targetRevision: "3.2.5"
     helm:
       releaseName: kyverno
-      valueFiles:
-      - kyverno/crds.yaml
-      - kyverno/controllers.yaml
+      valuesObject:
+        admissionController:
+          replicas: 1
+        backgroundController:
+          replicas: 1
+        cleanupController:
+          replicas: 1
+        reportsController:
+          replicas: 1
+        crds:
+          migration:
+            enabled: true
+            resources:
+              - admissionreports.kyverno.io
+              - backgroundscanreports.kyverno.io
+              - cleanuppolicies.kyverno.io
+              - clusteradmissionreports.kyverno.io
+              - clusterbackgroundscanreports.kyverno.io
+              - clustercleanuppolicies.kyverno.io
+              - clusterpolicies.kyverno.io
+              - globalcontextentries.kyverno.io
+              - policies.kyverno.io
+              - policyexceptions.kyverno.io
+              - updaterequests.kyverno.io
+              - clusterpolicies.kyverno.io
+              - policies.kyverno.io
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kyverno
