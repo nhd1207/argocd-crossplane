@@ -12,10 +12,10 @@ spec:
   template:
     metadata:
       labels:
-        app: nginxdeployment
+        app: nginx
     spec:
       containers:
-      - name: nginxdeployment
+      - name: nginx
         image: nginx:latest
         ports:
         - containerPort: 80
