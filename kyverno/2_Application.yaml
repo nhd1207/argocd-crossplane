@@ -35,8 +35,6 @@ spec:
               - policies.kyverno.io
               - policyexceptions.kyverno.io
               - updaterequests.kyverno.io
-              - clusterpolicies.kyverno.io
-              - policies.kyverno.io
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kyverno
