@@ -30,4 +30,7 @@ After deploying Kyverno:
 ![Kyverno application](./asset/image.png)
 
 Create a policy to add node selector 
-![Node Selector Policy](./asset/add_node_selector.png)
+![Node Selector Policy](./asset/add_node_selector_policy.png)
+
+Pods are automatically added node-selector due to policy:
+![Policy in Effect](./asset/policy_in_effect.png)
