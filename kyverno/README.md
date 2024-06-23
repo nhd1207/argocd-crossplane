@@ -34,3 +34,6 @@ Create a policy to add node selector
 
 Pods are automatically added node-selector due to policy:
 ![Policy in Effect](./asset/policy_in_effect.png)
+
+Pod creation is denied due to violate policy DisAllow Default Namespace
+![Disallow Default Namespace](./asset/disallow_default_namespace_policy.png)
